@@ -35,10 +35,22 @@ const update = catchError(async (req, res) => {
   return res.json(result[1][0]);
 });
 
+const setActorsMovies = catchError(async (req, res) => {
+  console.log("Entró a setMovieActors");
+  const { id } = req.params;
+  const actor = await Actor.findByPk(id);
+  if (!actor)
+    return res.sendStatus(404).json({ message: "Movie not found" });
+  await actor.setMovies(req.body);
+  const movie = await actor.getMovies();
+  return res.json(movie);
+});
+
 module.exports = {
   getAll,
   create,
   getOne,
   remove,
   update,
+  setActorsMovies,
 };

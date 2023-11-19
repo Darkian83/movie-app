@@ -11,6 +11,7 @@ const {
   remove,
   update,
   setMovieActors,
+  setMovieDirectors,
 } = require("../controllers/movie.controllers");
 const express = require("express");
 
@@ -25,5 +26,6 @@ movieRouter.route("/:id").get(getOne).delete(remove).put(update);
 movieRouter.route("/:id/genres").post(setGenresMovies);
 movieRouter.route("/:id/actors").post(setMovieActors);
 movieRouter.route("/:id/directors").post(setDirectorMovies);
+movieRouter.route("/:id/actors").post(setMovieDirectors);
 
 module.exports = movieRouter;

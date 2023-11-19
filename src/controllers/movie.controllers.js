@@ -42,14 +42,27 @@ const update = catchError(async (req, res) => {
 });
 
 const setMovieActors = catchError(async (req, res) => {
-  console.log("Entró a setMovieActors");
+  console.log("Entró a setActorsMovies");
   const { id } = req.params;
   const movie = await Movie.findByPk(id);
   if (!movie)
-    return res.sendStatus(404).json({ message: "Movie not found" });
+    return res.sendStatus(404).json({ message: "Actor not found" });
   await movie.setActors(req.body);
-  const actors = await movie.getActors();
-  return res.json(actors);
+  const actor = await movie.getActors();
+  return res.json(actor);
+});
+
+setMovieDirectors = catchError(async (req, res) => {
+  console.log("Entró a setDirectorsMovies");
+  const { id } = req.params;
+  const movie = await Movie.findByPk(id);
+  if (!movie)
+    return res
+      .sendStatus(404)
+      .json({ message: "Director not found" });
+  await movie.setDirectors(req.body);
+  const director = await movie.getDirectors();
+  return res.json(director);
 });
 
 module.exports = {
@@ -59,4 +72,5 @@ module.exports = {
   remove,
   update,
   setMovieActors,
+  setMovieDirectors,
 };
